@@ -19,25 +19,40 @@ class AddComment extends Component {
     e.preventDefault();
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/ " + // id,
-          {
-            method: "POST",
-            body: JSON.stringify(this.setState.comment),
-            headers: {
-              "Content-type": "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDc1MjMzMTYsImV4cCI6MTY0ODczMjkxNn0.Bkc3aqtgLaR4jw4HN5xZ0l-uoiYaaXIzH4bUipESL88",
-            },
-          }
+        "https://striveschool-api.herokuapp.com/api/comments/ " + this.props.id,
+        {
+          method: "POST",
+          body: JSON.stringify(this.setState.comment),
+          headers: {
+            "Content-type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDc1MjMzMTYsImV4cCI6MTY0ODczMjkxNn0.Bkc3aqtgLaR4jw4HN5xZ0l-uoiYaaXIzH4bUipESL88",
+          },
+        }
       );
       console.log(response);
+      if (response.ok) {
+        alert("comment saved");
+        this.emptyArr();
+      } else {
+        alert("something is wrong");
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  emptyArr = () => {
+    this.setState({
+      comment: {
+        comment: "",
+        rate: "",
+        //elementId: ,this.book.asin
+      },
+    });
+  };
   render() {
     return (
-      <div>
+      <div style={{ backgroundColor: this.props.bgColor }}>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label>Comment</Form.Label>

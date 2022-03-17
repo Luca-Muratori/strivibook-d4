@@ -13,7 +13,7 @@ class CommentArea extends Component {
   fetchComment = async (id) => {
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" + id,
+        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +35,7 @@ class CommentArea extends Component {
     return (
       <div>
         {/* <CommentList comment={this.state.comment} /> */}
-        <AddComment />
+        <AddComment bgColor={"green"} id={this.props.id} />
       </div>
     );
   }
