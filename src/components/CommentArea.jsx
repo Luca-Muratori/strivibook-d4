@@ -4,7 +4,6 @@ import AddComment from "./AddComment";
 class CommentArea extends Component {
   state = {
     comment: [],
-    bookObj: null,
     isLoading: true,
   };
 
@@ -22,6 +21,7 @@ class CommentArea extends Component {
         }
       );
       let data = await response.json();
+      console.log(data);
       this.setState({
         comment: data,
       });
@@ -29,10 +29,6 @@ class CommentArea extends Component {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  componentDidMount = async () => {
-    this.fetchComment();
   };
 
   componentDidUpdate = async (prevProps, prevState) => {

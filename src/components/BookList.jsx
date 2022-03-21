@@ -1,17 +1,19 @@
 import React from "react";
 import SingleBook from "./SingleBook";
 import { Col, Container, Form, Row } from "react-bootstrap";
+import CommentArea from "./CommentArea";
 
 class BookList extends React.Component {
   state = {
     searchQuery: "",
+    selectedBook: null,
   };
 
   render() {
     return (
-      <Container>
+      <Container className="d-flex">
         <Row>
-          <Col>
+          <Col lg={12}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Search</Form.Label>
               <Form.Control
@@ -22,21 +24,28 @@ class BookList extends React.Component {
               />
             </Form.Group>
           </Col>
-        </Row>
-        <Row>
+
           {this.props.books
             .filter((b) =>
               b.title.toLowerCase().includes(this.state.searchQuery)
             )
             .map((b) => (
-              <Col lg={6} xs={3}>
+              <Col lg={3} xs={3} key={b.asin}>
                 <SingleBook
-                  onChange={(e) => this.props.ChangeBook(e.target.value)}
+                  selectedBook={this.state.selectedBook}
                   book={b}
+                  changeSelectedBook={(asin) =>
+                    this.setState({
+                      selectedBook: asin,
+                    })
+                  }
                 />
               </Col>
             ))}
         </Row>
+        <Col md={4}>
+          <CommentArea asin={this.state.selectedBook} />
+        </Col>
       </Container>
     );
   }
