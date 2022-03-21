@@ -1,12 +1,12 @@
 import SingleComment from "./SingleComment";
-
-const CommentList = () => {
+import { ListGroup } from "react-bootstrap";
+const CommentList = ({ commentToShow }) => {
   return (
-    <div>
-      {this.props.comment.map((c) => (
-        <SingleComment comment={c} />
+    <ListGroup.Item>
+      {commentToShow.map((c) => (
+        <SingleComment comment={c} key={c._id} />
       ))}
-    </div>
+    </ListGroup.Item>
   );
 };
 

@@ -1,11 +1,7 @@
-const SingleComment = () => {
-  return (
-    <div>
-      <ul>
-        <li>{this.props.book.comment}</li>
-      </ul>
-    </div>
-  );
+import { ListGroup } from "react-bootstrap";
+
+const SingleComment = ({ comment }) => {
+  <ListGroup.Item>{comment.comment}</ListGroup.Item>;
 };
 
 export default SingleComment;

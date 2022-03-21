@@ -5,35 +5,29 @@ class AddComment extends Component {
   state = {
     comment: {
       comment: "",
-      rate: "",
-      //elementId: ,this.book.asin
+      rate: 1,
+      elementId: this.props.asin,
     },
   };
 
-  handleChange = (fieldToUpdate, value) => {
-    this.setState({
-      comment: { ...this.state.comment, [fieldToUpdate]: value },
-    });
-  };
   handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/ " + this.props.id,
+        "https://striveschool-api.herokuapp.com/api/comments ",
         {
           method: "POST",
-          body: JSON.stringify(this.setState.comment),
+          body: JSON.stringify(this.state.comment),
           headers: {
             "Content-type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDc1MjMzMTYsImV4cCI6MTY0ODczMjkxNn0.Bkc3aqtgLaR4jw4HN5xZ0l-uoiYaaXIzH4bUipESL88",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDc1NTEwMTgsImV4cCI6MTY0ODc2MDYxOH0.4i43vQkg0dC82l_Z2_gCA4PHAIkXmcEetnLAKBM8Tbk",
           },
         }
       );
       console.log(response);
       if (response.ok) {
         alert("comment saved");
-        this.emptyArr();
       } else {
         alert("something is wrong");
       }
@@ -41,15 +35,7 @@ class AddComment extends Component {
       console.log(error);
     }
   };
-  emptyArr = () => {
-    this.setState({
-      comment: {
-        comment: "",
-        rate: "",
-        //elementId: ,this.book.asin
-      },
-    });
-  };
+
   render() {
     return (
       <div style={{ backgroundColor: this.props.bgColor }}>
@@ -60,7 +46,11 @@ class AddComment extends Component {
               type="text"
               placeholder="insert your comment"
               value={this.state.comment.comment}
-              onChange={(e) => this.handleChange("comment", e.target.value)}
+              onChange={(e) =>
+                this.setState({
+                  comment: { ...this.state.comment, comment: e.target.value },
+                })
+              }
             ></Form.Control>
           </Form.Group>
           <Form.Group>
@@ -68,7 +58,11 @@ class AddComment extends Component {
             <Form.Control
               as="select"
               value={this.state.comment.rate}
-              onChange={(e) => this.handleChange("rate", e.target.value)}
+              onChange={(e) =>
+                this.setState({
+                  comment: { ...this.state.comment, rate: e.target.value },
+                })
+              }
             >
               <option>1</option>
               <option>2</option>

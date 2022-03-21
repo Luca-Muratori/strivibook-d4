@@ -23,11 +23,11 @@ class SingleBook extends React.Component {
         </Card>
         <>
           {" "}
-          {this.state.selected ? (
+          {/* {this.state.selected ? (
             <CommentArea id={this.props.book._id} />
           ) : (
             <></>
-          )}
+          )} */}
         </>
       </>
     );
