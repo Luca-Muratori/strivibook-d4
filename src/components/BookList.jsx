@@ -30,7 +30,10 @@ class BookList extends React.Component {
             )
             .map((b) => (
               <Col lg={6} xs={3}>
-                <SingleBook book={b} />
+                <SingleBook
+                  onChange={(e) => this.props.ChangeBook(e.target.value)}
+                  book={b}
+                />
               </Col>
             ))}
         </Row>

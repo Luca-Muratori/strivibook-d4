@@ -10,6 +10,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import CommentArea from "./components/CommentArea";
 
 class App extends Component {
+  state = {
+    bookTitle: "",
+  };
+
+  changeBook = (newBookTitle) => {
+    this.setState = {
+      bookTitle: newBookTitle,
+    };
+  };
   render() {
     return (
       <div className="App">
@@ -23,10 +32,17 @@ class App extends Component {
                 <SingleBook book={fantasyBooks[0]} />
               </Col> */}
               <Col lg={8} md={8} sm={12}>
-                <BookList books={fantasyBooks} />
+                <BookList
+                  value={this.state.bookTitle}
+                  changeBook={this.changeBook}
+                  books={fantasyBooks}
+                />
               </Col>
               <Col lg={4} md={4} sm={12}>
-                <CommentArea books={fantasyBooks} />
+                <CommentArea
+                  selectedBook={this.state.bookTitle}
+                  books={fantasyBooks}
+                />
               </Col>
             </Row>
           </Container>

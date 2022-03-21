@@ -4,9 +4,11 @@ import AddComment from "./AddComment";
 class CommentArea extends Component {
   state = {
     comment: [],
+    bookObj: null,
+    isLoading: true,
   };
 
-  componentDidMount = async () => {
+  fetchComment = async () => {
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/" +
@@ -15,7 +17,7 @@ class CommentArea extends Component {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDc1MjMzMTYsImV4cCI6MTY0ODczMjkxNn0.Bkc3aqtgLaR4jw4HN5xZ0l-uoiYaaXIzH4bUipESL88",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDc4NzA0NjMsImV4cCI6MTY0OTA4MDA2M30.E0fAlaqcvndTYrKoyFDLp5L4ZuEGLdFZ37zKohfAzVk",
           },
         }
       );
@@ -26,6 +28,16 @@ class CommentArea extends Component {
       console.log(data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  componentDidMount = async () => {
+    this.fetchComment();
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevProps.comment !== this.selectedBook) {
+      this.fetchComments();
     }
   };
   render() {
