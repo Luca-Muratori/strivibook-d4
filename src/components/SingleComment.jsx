@@ -1,7 +1,11 @@
 import { ListGroup } from "react-bootstrap";
 
 const SingleComment = ({ comment }) => {
-  <ListGroup.Item>{comment.comment}</ListGroup.Item>;
+  return (
+    <ListGroup.Item style={{ color: "black" }}>
+      {comment.comment}-{comment.rate}/5
+    </ListGroup.Item>
+  );
 };
 
 export default SingleComment;
