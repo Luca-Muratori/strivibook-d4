@@ -1,18 +1,20 @@
 import { Component } from "react";
 import CommentList from "./CommentList";
 import AddComment from "./AddComment";
-class CommentArea extends Component {
-  state = {
-    comment: [],
-    isLoading: true,
-  };
+import { useState, useEffect } from "react";
+const CommentArea = ({ asin }) => {
+  const [comment, setComment] = useState([]);
 
-  componentDidUpdate = async (prevProps) => {
-    if (prevProps.asin !== this.props.asin)
+  // state = {
+  //   comment: [],
+  //   isLoading: true,
+  // };
+
+  useEffect(() => {
+    const getComment = async () => {
       try {
         let response = await fetch(
-          "https://striveschool-api.herokuapp.com/api/comments/" +
-            this.props.asin,
+          "https://striveschool-api.herokuapp.com/api/comments/" + asin,
           {
             headers: {
               Authorization:
@@ -20,23 +22,25 @@ class CommentArea extends Component {
             },
           }
         );
-        let data = await response.json();
-        console.log(data);
-        this.setState({
-          comment: data,
-        });
+        if (response.ok) {
+          let data = await response.json();
+
+          setComment(data);
+        }
       } catch (error) {
         console.log(error);
       }
-  };
-  render() {
-    return (
-      <div>
-        <AddComment bgColor={"green"} asin={this.props.asin} />
-        <CommentList commentToShow={this.state.comment} />
-      </div>
-    );
-  }
-}
+    };
+    if (asin) {
+      getComment();
+    }
+  }, [asin]);
+  return (
+    <div>
+      <AddComment asin={asin} />
+      <CommentList commentToShow={comment} />
+    </div>
+  );
+};
 
 export default CommentArea;
