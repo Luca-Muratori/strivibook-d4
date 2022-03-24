@@ -2,6 +2,7 @@ import React from "react";
 import SingleBook from "./SingleBook";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import CommentArea from "./CommentArea";
+import { Link } from "react-router-dom";
 
 class BookList extends React.Component {
   state = {
@@ -14,6 +15,7 @@ class BookList extends React.Component {
       <Container className="d-flex">
         <Row>
           <Col lg={12}>
+            <Link to="/registration">Registration</Link>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Search</Form.Label>
               <Form.Control
